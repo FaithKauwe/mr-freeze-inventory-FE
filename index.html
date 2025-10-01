@@ -8,25 +8,8 @@
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   
-  <style>
-    /* Mobile-first responsive card sizing */
-    .card-img-top {
-      height: 120px;
-      object-fit: cover;
-    }
-    
-    @media (min-width: 768px) {
-      .card-img-top {
-        height: 180px;
-      }
-    }
-    
-    @media (min-width: 992px) {
-      .card-img-top {
-        height: 200px;
-      }
-    }
-  </style>
+  <!-- Custom Styles -->
+  <link href="assets/css/styles.css" rel="stylesheet">
 
 </head>
 <body>
@@ -60,47 +43,42 @@
   <!-- Main Content -->
   <main id="main-content">
     <div class="container mt-5">
-      <section class="row">
-          <!-- Header Section -->
-          <div class="col-12 text-center mb-4">
-              <h1>Freezer Inventory Control</h1>
-              <p class="lead">Self service control of deep freezer inventory</p>
-          </div>
-        </section>
-      <div class="row">
+      <div class="custom-cards-container">
           <!-- Card 1 -->
-          <div class="col-md-4 col-sm-6 mb-4">
-              <div class="card">
-                  <img src="assets/images/meats.jpg" class="card-img-top" alt="Various frozen meats and proteins organized in freezer storage">
-                  <div class="card-body">
-                      <h2 class="card-title">Current Inventory</h2>
-                      <p class="card-text">See whats in the freezer!</p>
-                      <a href="inventory.html" class="btn btn-primary">View Inventory</a>
-                  </div>
-              </div>
+          <a href="inventory.html" class="custom-card">
+            <div class="card-icon">
+                <img src="assets/images/freezer-inventory-icon.svg" alt="Clipboard icon representing inventory management">
             </div>
+            <div class="card-content">
+                <h2>Current Inventory</h2>
+                <p>See whats in the freezer!</p>
+                <span class="btn btn-primary">View Inventory</span>
+            </div>
+          </a>
+          
           <!-- Card 2 -->
-          <div class="col-md-4 col-sm-6 mb-4">
-              <div class="card">
-                  <img src="assets/images/grocerystore.png" class="card-img-top" alt="Shopping cart and grocery store representing adding new items to freezer">
-                  <div class="card-body">
-                      <h2 class="card-title">Add Item</h2>
-                      <p class="card-text">Bought something?</p>
-                      <a href="add_item.html" class="btn btn-primary">Add New Item</a>
-                  </div>
-              </div>
+          <a href="add_item.html" class="custom-card">
+            <div class="card-icon">
+                <img src="assets/images/grocery-bag-icon.png" alt="Shopping bag icon representing adding new items after grocery shopping">
             </div>
+            <div class="card-content">
+                <h2>Add Item</h2>
+                <p>Bought something?</p>
+                <span class="btn btn-primary">Add New Item</span>
+            </div>
+          </a>
+          
           <!-- Card 3 -->
-          <div class="col-md-4 col-sm-6 mb-4">
-            <div class="card">
-                <img src="assets/images/cooking.jpg" class="card-img-top" alt="Cooking preparation showing someone using ingredients from the freezer">
-                <div class="card-body">
-                    <h2 class="card-title">Expend Item</h2>
-                    <p class="card-text">Time to cook?</p>
-                    <a href="expend_item.html" class="btn btn-primary">Use Item</a>
-                </div>
+          <a href="expend_item.html" class="custom-card frying-pan-card">
+            <div class="card-icon">
+                <img src="assets/images/frying-pan-icon.png" alt="Frying pan icon representing cooking and using items from the freezer">
             </div>
-          </div>
+            <div class="card-content">
+                <h2>Use Item</h2>
+                <p>Time to cook?</p>
+                <span class="btn btn-primary">Use Item</span>
+            </div>
+          </a>
       </div>
   </div>
   </main>
