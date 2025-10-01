@@ -41,44 +41,72 @@
     </div>
   </nav>
 
-  <!-- Content Section -->
-  <div class="container mt-5">
-    <h1>New Freezer Item</h1>
-    <p>Define your item as much as possible and click "Save" to submit your data.</p>
+  <!-- Main Content -->
+  <main id="main-content">
+    <div class="container mt-5">
+      <h1>Add An Item</h1>
+      <p class="lead">Add your sticker to the item and scan the QR code with your phone camera</p>
 
-    <!-- Form -->
-    <form id="userForm">
-        <div class="mb-3">
-            <label for="foodGroup" class="form-label">Food Group</label>
-            <input type="text" class="form-control" id="foodGroup" placeholder="Select Food Group" required>
+      <!-- QR Code Section -->
+      <div class="row mb-4">
+        <div class="col-12 text-center">
+          <div class="card">
+            <div class="card-body">
+              <div class="mb-3">
+                <!-- Placeholder for QR code scanner -->
+                <div class="bg-light border rounded p-5 mb-3">
+                  <i class="fas fa-qrcode fa-3x text-muted"></i>
+                  <p class="text-muted mt-2">QR Code Scanner</p>
+                </div>
+              </div>
+              <p class="text-muted">Add your sticker to the item</p>
+              <p class="text-muted">Scan the QR code with your phone camera</p>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <input type="text" class="form-control" id="description" placeholder="Describe the item" required>
+      <!-- Form Section -->
+      <div class="card">
+        <div class="card-body">
+          <h2>Item Details</h2>
+          <form id="userForm">
+              <div class="mb-3">
+                  <label for="category" class="form-label">Category</label>
+                  <select class="form-control" id="category" required>
+                      <option value="">Select food category</option>
+                      <option value="meats">Meats</option>
+                      <option value="seafood">Seafood</option>
+                      <option value="frozen-meals">Frozen Meals</option>
+                      <option value="vegetables">Vegetables</option>
+                      <option value="other">Other</option>
+                  </select>
+              </div>
+
+              <div class="mb-3">
+                  <label for="itemName" class="form-label">Item Name</label>
+                  <input type="text" class="form-control" id="itemName" placeholder="chicken thighs, gumbo, broccoli, etc" required>
+              </div>
+
+              <div class="mb-3">
+                  <label for="weight" class="form-label">Weight/Amount</label>
+                  <input type="text" class="form-control" id="weight" placeholder="Enter weight or amount" required>
+              </div>
+
+              <div class="mb-3">
+                  <label for="date" class="form-label">Date</label>
+                  <input type="date" class="form-control" id="date" required>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+          </form>
         </div>
+      </div>
 
-        <div class="mb-3">
-            <label for="date" class="form-label">Date</label>
-            <input type="date" class="form-control" id="date" placeholder="Date of freeze" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="weight" class="form-label">Weight</label>
-            <input type="text" class="form-control" id="weight" placeholder="Weight of item (oz)" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="notes" class="form-label">Notes</label>
-            <textarea class="form-control" id="notes" rows="3" placeholder="Misc notes" required></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
-
-    <!-- Feedback Message -->
-    <div id="feedbackMessage" class="mt-3"></div>
-</div>
+      <!-- Feedback Message -->
+      <div id="feedbackMessage" class="mt-3"></div>
+    </div>
+  </main>
 
 <script>
     // JavaScript to handle form submission and display feedback
@@ -86,19 +114,18 @@
         event.preventDefault();  // Prevent default form submission behavior
 
         // Get form field values
-        var foodGroup = document.getElementById('foodGroup').value;
-        var description = document.getElementById('description').value;
+        var category = document.getElementById('category').value;
+        var itemName = document.getElementById('itemName').value;
         var date = document.getElementById('date').value;
         var weight = document.getElementById('weight').value;
-        var notes = document.getElementById('notes').value;
 
         // Display feedback message
         var feedbackMessage = `
             <h4>Form Submitted Successfully!</h4>
-            <p><strong>Food Group:</strong> ${foodGroup}</p>
-            <p><strong>Description:</strong> ${description}</p>
+            <p><strong>Category:</strong> ${category}</p>
+            <p><strong>Item Name:</strong> ${itemName}</p>
             <p><strong>Date:</strong> ${date}</p>
-            <p><strong>Weight:</strong> ${weight}</p>
+            <p><strong>Weight/Amount:</strong> ${weight}</p>
         `;
 
         document.getElementById('feedbackMessage').innerHTML = feedbackMessage;
