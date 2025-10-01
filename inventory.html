@@ -37,22 +37,100 @@
     </div>
   </nav>
 
-  <!-- Content Section -->
-  <div class="container my-5">
-    <h1>Freezer Inventory</h1>
-    <div class="form-group">
-      <label for="exampleDropdown">Choose an option:</label>
-      <select class="form-control" id="exampleDropdown">
-          <option value="1">Meats</option>
-          <option value="2">Cheeses</option>
-          <option value="3">Veggies</option>
-          <option value="4">Sauces</option>
-          <option value="4">Other</option>
-      </select>
-  </div>
+  <!-- Main Content -->
+  <main id="main-content">
+    <div class="container my-5">
+      <h1>Current Inventory</h1>
+      <p class="lead">Select a category to view items in your freezer</p>
+      
+      <div class="form-group mb-4">
+        <label for="categoryDropdown" class="form-label">Choose a category:</label>
+        <select class="form-control" id="categoryDropdown">
+            <option value="">Select a category</option>
+            <option value="meats">Meats</option>
+            <option value="seafood">Seafood</option>
+            <option value="frozen-meals">Frozen Meals</option>
+            <option value="vegetables">Vegetables</option>
+            <option value="other">Other</option>
+        </select>
+      </div>
 
-    <div id="selectedOption" class="mt-3">Results listed here!</div>
-  </div>
+      <div id="inventoryResults" class="mt-4">
+        <!-- Results will be displayed here -->
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Inventory data
+    const inventoryData = {
+      meats: [
+        { name: "Boneless, skinless chicken thighs", amount: "2 lbs", date: "2024-01-15" },
+        { name: "Ground beef (80/20)", amount: "1.5 lbs", date: "2024-01-10" },
+        { name: "Pork chops", amount: "6 pieces", date: "2024-01-12" },
+        { name: "Beef stew meat", amount: "1 lb", date: "2024-01-08" }
+      ],
+      seafood: [
+        { name: "Salmon fillets", amount: "4 pieces", date: "2024-01-14" },
+        { name: "Shrimp (large)", amount: "1 lb", date: "2024-01-11" },
+        { name: "Cod fillets", amount: "2 lbs", date: "2024-01-09" },
+        { name: "Scallops", amount: "0.5 lbs", date: "2024-01-13" }
+      ],
+      "frozen-meals": [
+        { name: "Pork + shrimp dumplings", amount: "1 bag", date: "2024-01-16" },
+        { name: "Chicken pot pie", amount: "2 pieces", date: "2024-01-07" },
+        { name: "Beef lasagna", amount: "1 tray", date: "2024-01-05" },
+        { name: "Vegetable stir fry mix", amount: "1 bag", date: "2024-01-12" }
+      ],
+      vegetables: [
+        { name: "Mixed vegetables", amount: "2 bags", date: "2024-01-06" },
+        { name: "Broccoli florets", amount: "1 bag", date: "2024-01-11" },
+        { name: "Green beans", amount: "1 bag", date: "2024-01-08" },
+        { name: "Corn kernels", amount: "3 bags", date: "2024-01-04" }
+      ],
+      other: [
+        { name: "Ice cream (vanilla)", amount: "1 quart", date: "2024-01-17" },
+        { name: "Frozen berries", amount: "2 bags", date: "2024-01-10" },
+        { name: "Bread dough", amount: "1 loaf", date: "2024-01-14" }
+      ]
+    };
+
+    // Function to display inventory items
+    function displayInventory(category) {
+      const resultsDiv = document.getElementById('inventoryResults');
+      
+      if (!category || !inventoryData[category]) {
+        resultsDiv.innerHTML = '<p class="text-muted">Please select a category to view items.</p>';
+        return;
+      }
+
+      const items = inventoryData[category];
+      const categoryName = category.charAt(0).toUpperCase() + category.slice(1).replace('-', ' ');
+      
+      let html = `<h3>${categoryName} (${items.length} items)</h3>`;
+      html += '<div class="list-group">';
+      
+      items.forEach(item => {
+        html += `
+          <div class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">${item.name}</h5>
+              <small>${item.date}</small>
+            </div>
+            <p class="mb-1">Amount: ${item.amount}</p>
+          </div>
+        `;
+      });
+      
+      html += '</div>';
+      resultsDiv.innerHTML = html;
+    }
+
+    // Event listener for dropdown change
+    document.getElementById('categoryDropdown').addEventListener('change', function() {
+      displayInventory(this.value);
+    });
+  </script>
 
   <!-- Footer -->
   <footer class="bg-dark text-white text-center py-3">
