@@ -37,22 +37,149 @@
     </div>
   </nav>
 
-  <!-- Content Section -->
-  <div class="container my-5">
-    <h1>Freezer Inventory</h1>
-    <div class="form-group">
-      <label for="exampleDropdown">Choose an option:</label>
-      <select class="form-control" id="exampleDropdown">
-          <option value="1">Meats</option>
-          <option value="2">Cheeses</option>
-          <option value="3">Veggies</option>
-          <option value="4">Sauces</option>
-          <option value="4">Other</option>
-      </select>
-  </div>
+  <!-- Main Content -->
+  <main id="main-content">
+    <div class="container my-5">
+      <h1>Use An Item</h1>
+      <p class="lead">Scan the QR code with your phone camera</p>
 
-    <div id="selectedOption" class="mt-3">Results listed here for deletion.</div>
-  </div>
+      <!-- QR Code Scanner Section -->
+      <div class="row mb-4">
+        <div class="col-12 text-center">
+          <div class="card">
+            <div class="card-body">
+              <div class="mb-3">
+                <!-- QR Code Scanner Button -->
+                <button id="scanQRBtn" class="btn btn-outline-primary btn-lg p-5">
+                  <div class="bg-light border rounded p-4 mb-3">
+                    <i class="fas fa-qrcode fa-3x text-muted"></i>
+                    <p class="text-muted mt-2">QR Code Scanner</p>
+                  </div>
+                  <p>Scan QR code with phone camera</p>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Editable Form Section (Hidden initially) -->
+      <div id="itemForm" class="card" style="display: none;">
+        <div class="card-body">
+          <h2>Item Details</h2>
+          <form id="userForm">
+              <div class="mb-3">
+                  <label for="category" class="form-label">Category</label>
+                  <select class="form-control" id="category" required>
+                      <option value="frozen-meals">Frozen Meals</option>
+                      <option value="meats">Meats</option>
+                      <option value="seafood">Seafood</option>
+                      <option value="vegetables">Vegetables</option>
+                      <option value="other">Other</option>
+                  </select>
+              </div>
+
+              <div class="mb-3">
+                  <label for="itemName" class="form-label">Item Name</label>
+                  <input type="text" class="form-control" id="itemName" value="Pork + shrimp dumplings" required>
+              </div>
+
+              <div class="mb-3">
+                  <label for="weight" class="form-label">Weight/Amount</label>
+                  <input type="text" class="form-control" id="weight" value="1 bag" required>
+              </div>
+
+              <div class="mb-3">
+                  <label for="date" class="form-label">Date</label>
+                  <input type="date" class="form-control" id="date" value="2024-01-16" required>
+              </div>
+
+              <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Update Item</button>
+                <button type="button" id="deleteBtn" class="btn btn-danger">Delete Item</button>
+              </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Feedback Message -->
+      <div id="feedbackMessage" class="mt-3"></div>
+    </div>
+  </main>
+
+  <script>
+    // Sample item data (simulating what would come from QR scan)
+    const scannedItem = {
+      category: "frozen-meals",
+      itemName: "Pork + shrimp dumplings",
+      weight: "1 bag",
+      date: "2024-01-16"
+    };
+
+    // QR Code Scanner Button Click Handler
+    document.getElementById('scanQRBtn').addEventListener('click', function() {
+      // Hide scanner button
+      this.style.display = 'none';
+      
+      // Show the editable form
+      document.getElementById('itemForm').style.display = 'block';
+      
+      // Populate form with scanned item data
+      document.getElementById('category').value = scannedItem.category;
+      document.getElementById('itemName').value = scannedItem.itemName;
+      document.getElementById('weight').value = scannedItem.weight;
+      document.getElementById('date').value = scannedItem.date;
+      
+      // Show feedback
+      document.getElementById('feedbackMessage').innerHTML = `
+        <div class="alert alert-success">
+          <h4>Item Scanned Successfully!</h4>
+          <p>Found: ${scannedItem.itemName}</p>
+          <p>You can now edit the details or delete this item.</p>
+        </div>
+      `;
+    });
+
+    // Form submission handler
+    document.getElementById('userForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const category = document.getElementById('category').value;
+      const itemName = document.getElementById('itemName').value;
+      const weight = document.getElementById('weight').value;
+      const date = document.getElementById('date').value;
+
+      document.getElementById('feedbackMessage').innerHTML = `
+        <div class="alert alert-success">
+          <h4>Item Updated Successfully!</h4>
+          <p><strong>Category:</strong> ${category}</p>
+          <p><strong>Item Name:</strong> ${itemName}</p>
+          <p><strong>Weight/Amount:</strong> ${weight}</p>
+          <p><strong>Date:</strong> ${date}</p>
+          <p class="mt-2"><em>In a real app, this would update the database.</em></p>
+        </div>
+      `;
+    });
+
+    // Delete button handler
+    document.getElementById('deleteBtn').addEventListener('click', function() {
+      if (confirm('Are you sure you want to delete this item from your inventory?')) {
+        document.getElementById('feedbackMessage').innerHTML = `
+          <div class="alert alert-danger">
+            <h4>Item Deleted!</h4>
+            <p><strong>${scannedItem.itemName}</strong> has been removed from your inventory.</p>
+            <p class="mt-2"><em>In a real app, this would remove the item from the database.</em></p>
+          </div>
+        `;
+        
+        // Hide the form
+        document.getElementById('itemForm').style.display = 'none';
+        
+        // Show scanner button again
+        document.getElementById('scanQRBtn').style.display = 'block';
+      }
+    });
+  </script>
 
   <!-- Footer -->
   <footer class="bg-dark text-white text-center py-3">
