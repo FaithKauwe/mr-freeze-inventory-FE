@@ -6,6 +6,12 @@
   margin-top: 2rem;
 }
 
+/* Add top spacing to footer */
+footer {
+  margin-top: 2rem;
+  background-color: red !important;
+}
+
 @media (min-width: 768px) {
   .custom-cards-container {
     grid-template-columns: repeat(2, 1fr);
