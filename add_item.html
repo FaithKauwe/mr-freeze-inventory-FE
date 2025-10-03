@@ -53,11 +53,14 @@
           <div class="card">
             <div class="card-body">
               <div class="mb-3">
-                <!-- Placeholder for QR code scanner -->
-                <div class="bg-light border rounded p-5 mb-3">
-                  <i class="fas fa-qrcode fa-3x text-muted"></i>
-                  <p class="text-muted mt-2">QR Code Scanner</p>
-                </div>
+                <!-- QR Code Scanner Button -->
+                <button id="scanQRBtn" class="btn btn-outline-primary btn-lg p-5">
+                  <div class="bg-light border rounded p-4 mb-3">
+                    <i class="fas fa-qrcode fa-3x text-muted"></i>
+                    <p class="text-muted mt-2">QR Code Scanner</p>
+                  </div>
+                  <p>Scan QR code with phone camera</p>
+                </button>
               </div>
               <p class="text-muted">Add your sticker to the item</p>
               <p class="text-muted">Scan the QR code with your phone camera</p>
@@ -66,8 +69,8 @@
         </div>
       </div>
 
-      <!-- Form Section -->
-      <div class="card">
+      <!-- Form Section (Hidden initially) -->
+      <div id="itemForm" class="card" style="display: none;">
         <div class="card-body">
           <h2>Item Details</h2>
           <form id="userForm">
@@ -109,6 +112,24 @@
   </main>
 
 <script>
+    // QR Code Scanner Button Click Handler
+    document.getElementById('scanQRBtn').addEventListener('click', function() {
+        // Hide scanner button
+        this.style.display = 'none';
+        
+        // Show the form
+        document.getElementById('itemForm').style.display = 'block';
+        
+        // Show feedback
+        document.getElementById('feedbackMessage').innerHTML = `
+            <div class="alert alert-success">
+                <h4>QR Code Scanned Successfully!</h4>
+                <p>Item detected and ready for input.</p>
+                <p>Please fill out the details below.</p>
+            </div>
+        `;
+    });
+
     // JavaScript to handle form submission and display feedback
     document.getElementById('userForm').addEventListener('submit', function(event) {
         event.preventDefault();  // Prevent default form submission behavior
@@ -121,17 +142,26 @@
 
         // Display feedback message
         var feedbackMessage = `
-            <h4>Form Submitted Successfully!</h4>
-            <p><strong>Category:</strong> ${category}</p>
-            <p><strong>Item Name:</strong> ${itemName}</p>
-            <p><strong>Date:</strong> ${date}</p>
-            <p><strong>Weight/Amount:</strong> ${weight}</p>
+            <div class="alert alert-success">
+                <h4>Item Added Successfully!</h4>
+                <p><strong>Category:</strong> ${category}</p>
+                <p><strong>Item Name:</strong> ${itemName}</p>
+                <p><strong>Date:</strong> ${date}</p>
+                <p><strong>Weight/Amount:</strong> ${weight}</p>
+                <p class="mt-2"><em>In a real app, this would save to the database.</em></p>
+            </div>
         `;
 
         document.getElementById('feedbackMessage').innerHTML = feedbackMessage;
 
         // Clear form fields
         document.getElementById('userForm').reset();
+        
+        // Hide the form again
+        document.getElementById('itemForm').style.display = 'none';
+        
+        // Show scanner button again
+        document.getElementById('scanQRBtn').style.display = 'block';
     });
 </script>
 
